@@ -50,7 +50,8 @@ export default async function main(bot, skills, world) {
 
         // 4. Coba menambang 1 block coal
         try {
-            const success = await skills.collectBlock(bot, 'coal_ore', 1);
+            const target_block_name = coal_blocks[0].name;
+            const success = await skills.collectBlock(bot, target_block_name, 1);
             if (success) {
                 coal_collected++;
                 if (coal_collected % 5 === 0 || coal_collected === target_coal) {

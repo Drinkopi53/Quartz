@@ -50,7 +50,8 @@ export default async function main(bot, skills, world) {
 
         // 4. Coba menambang 1 block iron
         try {
-            const success = await skills.collectBlock(bot, 'iron_ore', 1);
+            const target_block_name = iron_blocks[0].name;
+            const success = await skills.collectBlock(bot, target_block_name, 1);
             if (success) {
                 iron_collected++;
                 if (iron_collected % 5 === 0 || iron_collected === target_iron) {
