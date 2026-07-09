@@ -223,6 +223,12 @@ Parameter:
 Contoh Penulisan: !takeFromChest("cooked_beef", 3)
 --------------------------------------------------
 
+Perintah: !putAllChest
+Deskripsi: Put all items from the inventory into the nearest chest, except for tools and food.
+Parameter: Tidak ada parameter
+Contoh Penulisan: !putAllChest
+--------------------------------------------------
+
 Perintah: !viewChest
 Deskripsi: View the items/counts of the nearest chest.
 Parameter: Tidak ada parameter

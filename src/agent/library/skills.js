@@ -895,6 +895,111 @@ export async function putInChest(bot, itemName, num=-1) {
     return true;
 }
 
+export async function putAllInChest(bot) {
+    /**
+     * Put all items from the inventory into the nearest chest, except for tools and food.
+     * @param {MinecraftBot} bot, reference to the minecraft bot.
+     * @returns {Promise<boolean>} true if the items were put in the chest, false otherwise.
+     * @example
+     * await skills.putAllInChest(bot);
+     **/
+    let chest = world.getNearestBlock(bot, 'chest', 32);
+    if (!chest) {
+        log(bot, `Could not find a chest nearby.`);
+        return false;
+    }
+
+    let deposited_count = 0;
+    const max_search_range = 32;
+    const excludePositions = [];
+
+    while (true) {
+        let itemsToDeposit = [];
+        for (let item of bot.inventory.items()) {
+            if (!mc.isFood(item.name) && !mc.isTool(item.name)) {
+                itemsToDeposit.push(item);
+            }
+        }
+
+        if (itemsToDeposit.length === 0) {
+            if (deposited_count === 0) {
+                log(bot, `Inventory only contains tools and food, nothing to deposit.`);
+            }
+            break; // We're done!
+        }
+
+        if (!chest) {
+            log(bot, `Comrade, peti telah penuh semuanya`);
+            return false;
+        }
+
+        if (bot.entity.position.distanceTo(chest.position) > 4.5) {
+            await goToPosition(bot, chest.position.x, chest.position.y, chest.position.z, 2);
+        }
+
+        const chestContainer = await bot.openContainer(chest);
+
+        let chest_full = false;
+        for (let item of itemsToDeposit) {
+            try {
+                // Check inventory count before deposit so we can calculate how much was deposited
+                const countBefore = bot.inventory.items().find(i => i.type === item.type)?.count || 0;
+                await chestContainer.deposit(item.type, null, item.count);
+                const countAfter = bot.inventory.items().find(i => i.type === item.type)?.count || 0;
+                deposited_count += (countBefore - countAfter);
+            } catch (err) {
+                // Chest might be full
+                chest_full = true;
+
+                // Recalculate how much was deposited even if it failed midway
+                const countAfter = bot.inventory.items().find(i => i.type === item.type)?.count || 0;
+                // find the original count in itemsToDeposit
+                const originalItem = itemsToDeposit.find(i => i.type === item.type);
+                if (originalItem) {
+                    deposited_count += (originalItem.count - countAfter);
+                }
+
+                break;
+            }
+        }
+
+        await chestContainer.close();
+
+        // Check if we still have items to deposit
+        let itemsLeftToDeposit = bot.inventory.items().filter(item => !mc.isFood(item.name) && !mc.isTool(item.name));
+
+        if (itemsLeftToDeposit.length > 0) {
+            excludePositions.push(chest.position);
+
+            // Find next chest using findBlocks
+            const nextChests = bot.findBlocks({
+                matching: mc.getBlockId('chest'),
+                maxDistance: max_search_range,
+                count: excludePositions.length + 1
+            });
+
+            chest = null;
+            // Sort by distance manually, filter out excluded
+            const pos = bot.entity.position;
+            const validChests = nextChests
+                .filter(p => !excludePositions.some(ep => ep.x === p.x && ep.y === p.y && ep.z === p.z))
+                .sort((a, b) => pos.distanceTo(a) - pos.distanceTo(b));
+
+            if (validChests.length > 0) {
+                chest = bot.blockAt(validChests[0]);
+            }
+        } else {
+            break;
+        }
+    }
+
+    if (deposited_count > 0) {
+        log(bot, `Successfully deposited ${deposited_count} items into chests.`);
+        return true;
+    }
+    return true; // Return true if nothing to deposit
+}
+
 export async function takeFromChest(bot, itemName, num=-1) {
     /**
      * Take the given item from the nearest chest, potentially from multiple slots.
