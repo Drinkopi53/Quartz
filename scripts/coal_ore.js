@@ -1,9 +1,6 @@
 export default async function main(bot, skills, world) {
     bot.chat("Memulai misi mencari 100 Coal Ore!");
 
-    // Tingkatkan limit listener untuk menghindari MaxListenersExceededWarning saat loop panjang
-    bot.setMaxListeners(1000);
-
     // Pause background modes that might interrupt the custom script
     bot.modes.pause('unstuck');
     bot.modes.pause('self_defense');
@@ -11,7 +8,6 @@ export default async function main(bot, skills, world) {
 
     let coal_collected = 0;
     const target_coal = 100;
-    const ignored_blocks = []; // Menyimpan posisi blok yang tidak bisa dijangkau agar tidak di-loop
 
     try {
         while (coal_collected < target_coal && !bot.interrupt_code) {
@@ -44,17 +40,10 @@ export default async function main(bot, skills, world) {
         }
 
         // 3. Cari block coal ore terdekat
-        const coal_blocks = world.getNearestBlocksWhere(bot, block => {
-            if (block.name !== 'coal_ore' && block.name !== 'deepslate_coal_ore') return false;
-            // Abaikan blok yang ada di daftar ignored_blocks
-            for (let bad_pos of ignored_blocks) {
-                if (bad_pos.equals(block.position)) return false;
-            }
-            return true;
-        }, 64, 1);
+        const coal_blocks = world.getNearestBlocksWhere(bot, block => block.name === 'coal_ore' || block.name === 'deepslate_coal_ore', 64, 1);
 
         if (coal_blocks.length === 0) {
-            bot.chat("Tidak ada Coal Ore yang bisa dijangkau di sekitar jarak 64 blok. Mengeksplorasi area baru...");
+            bot.chat("Tidak ada Coal Ore di sekitar jarak 64 blok. Mengeksplorasi area baru...");
             await skills.moveAway(bot, 32);
             continue;
         }
@@ -70,22 +59,18 @@ export default async function main(bot, skills, world) {
                 }
             } else {
                 // Jika gagal menambang, kemungkinan stuck (pathfinding error)
-                bot.stopDigging();
-                ignored_blocks.push(coal_blocks[0].position);
-                bot.chat("Gagal menambang blok ini (stuck/terhalang). Mengabaikan blok ini ke depannya dan mencari jalan keluar...");
+                bot.chat("Sepertinya saya terjebak (stuck). Mencoba mencari jalan keluar...");
                 const moved = await skills.moveAway(bot, 5);
                 if (moved) {
-                     bot.chat("Bebas dari stuck! Melanjutkan pencarian.");
+                     bot.chat("Bebas dari stuck! Melanjutkan penambangan.");
                 } else {
                      bot.chat("Gagal mencari jalan keluar, saya akan mencoba menambang area lain.");
                 }
             }
         } catch (error) {
-            bot.stopDigging();
-            ignored_blocks.push(coal_blocks[0].position);
-            bot.chat("Terjadi error saat mencoba menambang (stuck). Mengabaikan blok ini dan membebaskan diri.");
+            bot.chat("Terjadi error saat mencoba menambang atau stuck. Mencoba membebaskan diri.");
             await skills.moveAway(bot, 4);
-            bot.chat("Melanjutkan pencarian.");
+            bot.chat("Melanjutkan penambangan.");
         }
 
             await skills.wait(bot, 500); // Wait sebentar sebelum loop selanjutnya untuk mengurangi lag
