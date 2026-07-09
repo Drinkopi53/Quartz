@@ -10,6 +10,17 @@ export default async function main(bot, skills, world) {
     const target_diamond = 60;
 
     try {
+        // Menuju kedalaman -50
+        while (bot.entity.position.y > -50 && !bot.interrupt_code) {
+            let y_diff = Math.floor(bot.entity.position.y - (-50));
+            bot.chat(`Posisi terlalu tinggi. Menggali ke bawah sejauh ${y_diff} blok untuk mencapai spot terbaik (Y = -50)...`);
+            let dug = await skills.digDown(bot, y_diff);
+            if (!dug) {
+                bot.chat("Terhalang saat menggali ke bawah (lava/air/jurang). Bergeser mencari spot penggalian lain...");
+                await skills.moveAway(bot, 10);
+            }
+        }
+
         while (diamond_collected < target_diamond && !bot.interrupt_code) {
         // 1. Cek keberadaan pickaxe
         let has_pickaxe = false;
@@ -50,7 +61,8 @@ export default async function main(bot, skills, world) {
 
         // 4. Coba menambang 1 block diamond
         try {
-            const success = await skills.collectBlock(bot, 'diamond_ore', 1);
+            const target_block_name = diamond_blocks[0].name;
+            const success = await skills.collectBlock(bot, target_block_name, 1);
             if (success) {
                 diamond_collected++;
                 if (diamond_collected % 5 === 0 || diamond_collected === target_diamond) {
