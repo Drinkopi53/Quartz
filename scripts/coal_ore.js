@@ -1,10 +1,16 @@
 export default async function main(bot, skills, world) {
     bot.chat("Memulai misi mencari 100 Coal Ore!");
 
+    // Pause background modes that might interrupt the custom script
+    bot.modes.pause('unstuck');
+    bot.modes.pause('self_defense');
+    bot.modes.pause('cowardice');
+
     let coal_collected = 0;
     const target_coal = 100;
 
-    while (coal_collected < target_coal && !bot.interrupt_code) {
+    try {
+        while (coal_collected < target_coal && !bot.interrupt_code) {
         // 1. Cek keberadaan pickaxe
         let has_pickaxe = false;
         const items = bot.inventory.items();
@@ -66,12 +72,18 @@ export default async function main(bot, skills, world) {
             bot.chat("Melanjutkan penambangan.");
         }
 
-        await skills.wait(bot, 500); // Wait sebentar sebelum loop selanjutnya untuk mengurangi lag
-    }
+            await skills.wait(bot, 500); // Wait sebentar sebelum loop selanjutnya untuk mengurangi lag
+        }
 
-    if (coal_collected >= target_coal) {
-        bot.chat("Misi selesai! 100 Coal berhasil dikumpulkan.");
-    } else if (!bot.interrupt_code) {
-        bot.chat(`Misi berhenti. Hanya berhasil mengumpulkan ${coal_collected}/${target_coal} Coal.`);
+        if (coal_collected >= target_coal) {
+            bot.chat("Misi selesai! 100 Coal berhasil dikumpulkan.");
+        } else if (!bot.interrupt_code) {
+            bot.chat(`Misi berhenti. Hanya berhasil mengumpulkan ${coal_collected}/${target_coal} Coal.`);
+        }
+    } finally {
+        // Unpause background modes when the script ends
+        bot.modes.unpause('unstuck');
+        bot.modes.unpause('self_defense');
+        bot.modes.unpause('cowardice');
     }
 }
