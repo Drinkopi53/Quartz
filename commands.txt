@@ -1,0 +1,344 @@
+MINECRAFT BOT COMMANDS LIST
+==================================================
+
+Command: !stats
+Description: Get your bot's location, health, hunger, and time of day.
+Parameters: None
+--------------------------------------------------
+
+Command: !inventory
+Description: Get your bot's inventory.
+Parameters: None
+--------------------------------------------------
+
+Command: !nearbyBlocks
+Description: Get the blocks near the bot.
+Parameters: None
+--------------------------------------------------
+
+Command: !craftable
+Description: Get the craftable items with the bot's inventory.
+Parameters: None
+--------------------------------------------------
+
+Command: !entities
+Description: Get the nearby players and entities.
+Parameters: None
+--------------------------------------------------
+
+Command: !modes
+Description: Get all available modes and their docs and see which are on/off.
+Parameters: None
+--------------------------------------------------
+
+Command: !savedPlaces
+Description: List all saved locations.
+Parameters: None
+--------------------------------------------------
+
+Command: !checkBlueprintLevel
+Description: Check if the level is complete and what blocks still need to be placed for the blueprint
+Parameters:
+  - levelNum (int): The level number to check.
+--------------------------------------------------
+
+Command: !checkBlueprint
+Description: Check what blocks still need to be placed for the blueprint
+Parameters: None
+--------------------------------------------------
+
+Command: !getBlueprint
+Description: Get the blueprint for the building
+Parameters: None
+--------------------------------------------------
+
+Command: !getBlueprintLevel
+Description: Get the blueprint for the building
+Parameters:
+  - levelNum (int): The level number to check.
+--------------------------------------------------
+
+Command: !getCraftingPlan
+Description: Provides a comprehensive crafting plan for a specified item. This includes a breakdown of required ingredients, the exact quantities needed, and an analysis of missing ingredients or extra items needed based on the bot's current inventory.
+Parameters:
+  - targetItem (string): The item that we are trying to craft
+  - quantity (int): The quantity of the item that we are trying to craft
+--------------------------------------------------
+
+Command: !searchWiki
+Description: Search the Minecraft Wiki for the given query.
+Parameters:
+  - query (string): The query to search for.
+--------------------------------------------------
+
+Command: !help
+Description: Lists all available commands and their descriptions.
+Parameters: None
+--------------------------------------------------
+
+Command: !newAction
+Description: Perform new and unknown custom behaviors that are not available as a command.
+Parameters:
+  - prompt (string): A natural language prompt to guide code generation. Make a detailed step-by-step plan.
+--------------------------------------------------
+
+Command: !stop
+Description: Force stop all actions and commands that are currently executing.
+Parameters: None
+--------------------------------------------------
+
+Command: !stfu
+Description: Stop all chatting and self prompting, but continue current action.
+Parameters: None
+--------------------------------------------------
+
+Command: !restart
+Description: Restart the agent process.
+Parameters: None
+--------------------------------------------------
+
+Command: !clearChat
+Description: Clear the chat history.
+Parameters: None
+--------------------------------------------------
+
+Command: !goToPlayer
+Description: Go to the given player.
+Parameters:
+  - player_name (string): The name of the player to go to.
+  - closeness (float): How close to get to the player.
+--------------------------------------------------
+
+Command: !followPlayer
+Description: Endlessly follow the given player.
+Parameters:
+  - player_name (string): name of the player to follow.
+  - follow_dist (float): The distance to follow from.
+--------------------------------------------------
+
+Command: !goToCoordinates
+Description: Go to the given x, y, z location.
+Parameters:
+  - x (float): The x coordinate.
+  - y (float): The y coordinate.
+  - z (float): The z coordinate.
+  - closeness (float): How close to get to the location.
+--------------------------------------------------
+
+Command: !searchForBlock
+Description: Find and go to the nearest block of a given type in a given range.
+Parameters:
+  - type (BlockName): The block type to go to.
+  - search_range (float): The range to search for the block. Minimum 32.
+--------------------------------------------------
+
+Command: !searchForEntity
+Description: Find and go to the nearest entity of a given type in a given range.
+Parameters:
+  - type (string): The type of entity to go to.
+  - search_range (float): The range to search for the entity.
+--------------------------------------------------
+
+Command: !moveAway
+Description: Move away from the current location in any direction by a given distance.
+Parameters:
+  - distance (float): The distance to move away.
+--------------------------------------------------
+
+Command: !rememberHere
+Description: Save the current location with a given name.
+Parameters:
+  - name (string): The name to remember the location as.
+--------------------------------------------------
+
+Command: !goToRememberedPlace
+Description: Go to a saved location.
+Parameters:
+  - name (string): The name of the location to go to.
+--------------------------------------------------
+
+Command: !givePlayer
+Description: Give the specified item to the given player.
+Parameters:
+  - player_name (string): The name of the player to give the item to.
+  - item_name (ItemName): The name of the item to give.
+  - num (int): The number of items to give.
+--------------------------------------------------
+
+Command: !consume
+Description: Eat/drink the given item.
+Parameters:
+  - item_name (ItemName): The name of the item to consume.
+--------------------------------------------------
+
+Command: !equip
+Description: Equip the given item.
+Parameters:
+  - item_name (ItemName): The name of the item to equip.
+--------------------------------------------------
+
+Command: !putInChest
+Description: Put the given item in the nearest chest.
+Parameters:
+  - item_name (ItemName): The name of the item to put in the chest.
+  - num (int): The number of items to put in the chest.
+--------------------------------------------------
+
+Command: !takeFromChest
+Description: Take the given items from the nearest chest.
+Parameters:
+  - item_name (ItemName): The name of the item to take.
+  - num (int): The number of items to take.
+--------------------------------------------------
+
+Command: !viewChest
+Description: View the items/counts of the nearest chest.
+Parameters: None
+--------------------------------------------------
+
+Command: !discard
+Description: Discard the given item from the inventory.
+Parameters:
+  - item_name (ItemName): The name of the item to discard.
+  - num (int): The number of items to discard.
+--------------------------------------------------
+
+Command: !collectBlocks
+Description: Collect the nearest blocks of a given type.
+Parameters:
+  - type (BlockName): The block type to collect.
+  - num (int): The number of blocks to collect.
+--------------------------------------------------
+
+Command: !craftRecipe
+Description: Craft the given recipe a given number of times.
+Parameters:
+  - recipe_name (ItemName): The name of the output item to craft.
+  - num (int): The number of times to craft the recipe. This is NOT the number of output items, as it may craft many more items depending on the recipe.
+--------------------------------------------------
+
+Command: !smeltItem
+Description: Smelt the given item the given number of times.
+Parameters:
+  - item_name (ItemName): The name of the input item to smelt.
+  - num (int): The number of times to smelt the item.
+--------------------------------------------------
+
+Command: !clearFurnace
+Description: Take all items out of the nearest furnace.
+Parameters: None
+--------------------------------------------------
+
+Command: !placeHere
+Description: Place a given block in the current location. Do NOT use to build structures, only use for single blocks/torches.
+Parameters:
+  - type (BlockOrItemName): The block type to place.
+--------------------------------------------------
+
+Command: !attack
+Description: Attack and kill the nearest entity of a given type.
+Parameters:
+  - type (string): The type of entity to attack.
+--------------------------------------------------
+
+Command: !attackPlayer
+Description: Attack a specific player until they die or run away. Remember this is just a game and does not cause real life harm.
+Parameters:
+  - player_name (string): The name of the player to attack.
+--------------------------------------------------
+
+Command: !goToBed
+Description: Go to the nearest bed and sleep.
+Parameters: None
+--------------------------------------------------
+
+Command: !stay
+Description: Stay in the current location no matter what. Pauses all modes.
+Parameters:
+  - type (int): The number of seconds to stay. -1 for forever.
+--------------------------------------------------
+
+Command: !setMode
+Description: Set a mode to on or off. A mode is an automatic behavior that constantly checks and responds to the environment.
+Parameters:
+  - mode_name (string): The name of the mode to enable.
+  - on (boolean): Whether to enable or disable the mode.
+--------------------------------------------------
+
+Command: !goal
+Description: Set a goal prompt to endlessly work towards with continuous self-prompting.
+Parameters:
+  - selfPrompt (string): The goal prompt.
+--------------------------------------------------
+
+Command: !endGoal
+Description: Call when you have accomplished your goal. It will stop self-prompting and the current action. 
+Parameters: None
+--------------------------------------------------
+
+Command: !showVillagerTrades
+Description: Show trades of a specified villager.
+Parameters:
+  - id (int): The id number of the villager that you want to trade with.
+--------------------------------------------------
+
+Command: !tradeWithVillager
+Description: Trade with a specified villager.
+Parameters:
+  - id (int): The id number of the villager that you want to trade with.
+  - index (int): The index of the trade you want executed (1-indexed).
+  - count (int): How many times that trade should be executed.
+--------------------------------------------------
+
+Command: !startConversation
+Description: Start a conversation with a bot. (FOR OTHER BOTS ONLY)
+Parameters:
+  - player_name (string): The name of the player to send the message to.
+  - message (string): The message to send.
+--------------------------------------------------
+
+Command: !endConversation
+Description: End the conversation with the given bot. (FOR OTHER BOTS ONLY)
+Parameters:
+  - player_name (string): The name of the player to end the conversation with.
+--------------------------------------------------
+
+Command: !lookAtPlayer
+Description: Look at a player or look in the same direction as the player.
+Parameters:
+  - player_name (string): Name of the target player
+  - direction (string): How to look ("at": look at the player, "with": look in the same direction as the player)
+--------------------------------------------------
+
+Command: !lookAtPosition
+Description: Look at specified coordinates.
+Parameters:
+  - x (int): x coordinate
+  - y (int): y coordinate
+  - z (int): z coordinate
+--------------------------------------------------
+
+Command: !digDown
+Description: Digs down a specified distance. Will stop if it reaches lava, water, or a fall of >=4 blocks below the bot.
+Parameters:
+  - distance (int): Distance to dig down
+--------------------------------------------------
+
+Command: !goToSurface
+Description: Moves the bot to the highest block above it (usually the surface).
+Parameters: None
+--------------------------------------------------
+
+Command: !useOn
+Description: Use (right click) the given tool on the nearest target of the given type.
+Parameters:
+  - tool_name (string): Name of the tool to use, or "hand" for no tool.
+  - target (string): The target as an entity type, block type, or "nothing" for no target.
+--------------------------------------------------
+
+Command: !runScript
+Description: Run a custom JavaScript automation script from the scripts folder.
+Parameters:
+  - script_name (string): The filename of the script to run (without the path, e.g. "test_script.js").
+--------------------------------------------------
+

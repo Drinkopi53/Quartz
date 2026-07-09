@@ -1,0 +1,344 @@
+DAFTAR PERINTAH BOT MINECRAFT
+==================================================
+
+Perintah: !stats
+Deskripsi: Get your bot's location, health, hunger, and time of day.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !inventory
+Deskripsi: Get your bot's inventory.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !nearbyBlocks
+Deskripsi: Get the blocks near the bot.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !craftable
+Deskripsi: Get the craftable items with the bot's inventory.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !entities
+Deskripsi: Get the nearby players and entities.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !modes
+Deskripsi: Get all available modes and their docs and see which are on/off.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !savedPlaces
+Deskripsi: List all saved locations.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !checkBlueprintLevel
+Deskripsi: Check if the level is complete and what blocks still need to be placed for the blueprint
+Parameter:
+  - levelNum (int): The level number to check.
+--------------------------------------------------
+
+Perintah: !checkBlueprint
+Deskripsi: Check what blocks still need to be placed for the blueprint
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !getBlueprint
+Deskripsi: Get the blueprint for the building
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !getBlueprintLevel
+Deskripsi: Get the blueprint for the building
+Parameter:
+  - levelNum (int): The level number to check.
+--------------------------------------------------
+
+Perintah: !getCraftingPlan
+Deskripsi: Provides a comprehensive crafting plan for a specified item. This includes a breakdown of required ingredients, the exact quantities needed, and an analysis of missing ingredients or extra items needed based on the bot's current inventory.
+Parameter:
+  - targetItem (string): The item that we are trying to craft
+  - quantity (int): The quantity of the item that we are trying to craft
+--------------------------------------------------
+
+Perintah: !searchWiki
+Deskripsi: Search the Minecraft Wiki for the given query.
+Parameter:
+  - query (string): The query to search for.
+--------------------------------------------------
+
+Perintah: !help
+Deskripsi: Lists all available commands and their descriptions.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !newAction
+Deskripsi: Perform new and unknown custom behaviors that are not available as a command.
+Parameter:
+  - prompt (string): A natural language prompt to guide code generation. Make a detailed step-by-step plan.
+--------------------------------------------------
+
+Perintah: !stop
+Deskripsi: Force stop all actions and commands that are currently executing.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !stfu
+Deskripsi: Stop all chatting and self prompting, but continue current action.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !restart
+Deskripsi: Restart the agent process.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !clearChat
+Deskripsi: Clear the chat history.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !goToPlayer
+Deskripsi: Go to the given player.
+Parameter:
+  - player_name (string): The name of the player to go to.
+  - closeness (float): How close to get to the player.
+--------------------------------------------------
+
+Perintah: !followPlayer
+Deskripsi: Endlessly follow the given player.
+Parameter:
+  - player_name (string): name of the player to follow.
+  - follow_dist (float): The distance to follow from.
+--------------------------------------------------
+
+Perintah: !goToCoordinates
+Deskripsi: Go to the given x, y, z location.
+Parameter:
+  - x (float): The x coordinate.
+  - y (float): The y coordinate.
+  - z (float): The z coordinate.
+  - closeness (float): How close to get to the location.
+--------------------------------------------------
+
+Perintah: !searchForBlock
+Deskripsi: Find and go to the nearest block of a given type in a given range.
+Parameter:
+  - type (BlockName): The block type to go to.
+  - search_range (float): The range to search for the block. Minimum 32.
+--------------------------------------------------
+
+Perintah: !searchForEntity
+Deskripsi: Find and go to the nearest entity of a given type in a given range.
+Parameter:
+  - type (string): The type of entity to go to.
+  - search_range (float): The range to search for the entity.
+--------------------------------------------------
+
+Perintah: !moveAway
+Deskripsi: Move away from the current location in any direction by a given distance.
+Parameter:
+  - distance (float): The distance to move away.
+--------------------------------------------------
+
+Perintah: !rememberHere
+Deskripsi: Save the current location with a given name.
+Parameter:
+  - name (string): The name to remember the location as.
+--------------------------------------------------
+
+Perintah: !goToRememberedPlace
+Deskripsi: Go to a saved location.
+Parameter:
+  - name (string): The name of the location to go to.
+--------------------------------------------------
+
+Perintah: !givePlayer
+Deskripsi: Give the specified item to the given player.
+Parameter:
+  - player_name (string): The name of the player to give the item to.
+  - item_name (ItemName): The name of the item to give.
+  - num (int): The number of items to give.
+--------------------------------------------------
+
+Perintah: !consume
+Deskripsi: Eat/drink the given item.
+Parameter:
+  - item_name (ItemName): The name of the item to consume.
+--------------------------------------------------
+
+Perintah: !equip
+Deskripsi: Equip the given item.
+Parameter:
+  - item_name (ItemName): The name of the item to equip.
+--------------------------------------------------
+
+Perintah: !putInChest
+Deskripsi: Put the given item in the nearest chest.
+Parameter:
+  - item_name (ItemName): The name of the item to put in the chest.
+  - num (int): The number of items to put in the chest.
+--------------------------------------------------
+
+Perintah: !takeFromChest
+Deskripsi: Take the given items from the nearest chest.
+Parameter:
+  - item_name (ItemName): The name of the item to take.
+  - num (int): The number of items to take.
+--------------------------------------------------
+
+Perintah: !viewChest
+Deskripsi: View the items/counts of the nearest chest.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !discard
+Deskripsi: Discard the given item from the inventory.
+Parameter:
+  - item_name (ItemName): The name of the item to discard.
+  - num (int): The number of items to discard.
+--------------------------------------------------
+
+Perintah: !collectBlocks
+Deskripsi: Collect the nearest blocks of a given type.
+Parameter:
+  - type (BlockName): The block type to collect.
+  - num (int): The number of blocks to collect.
+--------------------------------------------------
+
+Perintah: !craftRecipe
+Deskripsi: Craft the given recipe a given number of times.
+Parameter:
+  - recipe_name (ItemName): The name of the output item to craft.
+  - num (int): The number of times to craft the recipe. This is NOT the number of output items, as it may craft many more items depending on the recipe.
+--------------------------------------------------
+
+Perintah: !smeltItem
+Deskripsi: Smelt the given item the given number of times.
+Parameter:
+  - item_name (ItemName): The name of the input item to smelt.
+  - num (int): The number of times to smelt the item.
+--------------------------------------------------
+
+Perintah: !clearFurnace
+Deskripsi: Take all items out of the nearest furnace.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !placeHere
+Deskripsi: Place a given block in the current location. Do NOT use to build structures, only use for single blocks/torches.
+Parameter:
+  - type (BlockOrItemName): The block type to place.
+--------------------------------------------------
+
+Perintah: !attack
+Deskripsi: Attack and kill the nearest entity of a given type.
+Parameter:
+  - type (string): The type of entity to attack.
+--------------------------------------------------
+
+Perintah: !attackPlayer
+Deskripsi: Attack a specific player until they die or run away. Remember this is just a game and does not cause real life harm.
+Parameter:
+  - player_name (string): The name of the player to attack.
+--------------------------------------------------
+
+Perintah: !goToBed
+Deskripsi: Go to the nearest bed and sleep.
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !stay
+Deskripsi: Stay in the current location no matter what. Pauses all modes.
+Parameter:
+  - type (int): The number of seconds to stay. -1 for forever.
+--------------------------------------------------
+
+Perintah: !setMode
+Deskripsi: Set a mode to on or off. A mode is an automatic behavior that constantly checks and responds to the environment.
+Parameter:
+  - mode_name (string): The name of the mode to enable.
+  - on (boolean): Whether to enable or disable the mode.
+--------------------------------------------------
+
+Perintah: !goal
+Deskripsi: Set a goal prompt to endlessly work towards with continuous self-prompting.
+Parameter:
+  - selfPrompt (string): The goal prompt.
+--------------------------------------------------
+
+Perintah: !endGoal
+Deskripsi: Call when you have accomplished your goal. It will stop self-prompting and the current action. 
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !showVillagerTrades
+Deskripsi: Show trades of a specified villager.
+Parameter:
+  - id (int): The id number of the villager that you want to trade with.
+--------------------------------------------------
+
+Perintah: !tradeWithVillager
+Deskripsi: Trade with a specified villager.
+Parameter:
+  - id (int): The id number of the villager that you want to trade with.
+  - index (int): The index of the trade you want executed (1-indexed).
+  - count (int): How many times that trade should be executed.
+--------------------------------------------------
+
+Perintah: !startConversation
+Deskripsi: Start a conversation with a bot. (FOR OTHER BOTS ONLY)
+Parameter:
+  - player_name (string): The name of the player to send the message to.
+  - message (string): The message to send.
+--------------------------------------------------
+
+Perintah: !endConversation
+Deskripsi: End the conversation with the given bot. (FOR OTHER BOTS ONLY)
+Parameter:
+  - player_name (string): The name of the player to end the conversation with.
+--------------------------------------------------
+
+Perintah: !lookAtPlayer
+Deskripsi: Look at a player or look in the same direction as the player.
+Parameter:
+  - player_name (string): Name of the target player
+  - direction (string): How to look ("at": look at the player, "with": look in the same direction as the player)
+--------------------------------------------------
+
+Perintah: !lookAtPosition
+Deskripsi: Look at specified coordinates.
+Parameter:
+  - x (int): x coordinate
+  - y (int): y coordinate
+  - z (int): z coordinate
+--------------------------------------------------
+
+Perintah: !digDown
+Deskripsi: Digs down a specified distance. Will stop if it reaches lava, water, or a fall of >=4 blocks below the bot.
+Parameter:
+  - distance (int): Distance to dig down
+--------------------------------------------------
+
+Perintah: !goToSurface
+Deskripsi: Moves the bot to the highest block above it (usually the surface).
+Parameter: Tidak ada parameter
+--------------------------------------------------
+
+Perintah: !useOn
+Deskripsi: Use (right click) the given tool on the nearest target of the given type.
+Parameter:
+  - tool_name (string): Name of the tool to use, or "hand" for no tool.
+  - target (string): The target as an entity type, block type, or "nothing" for no target.
+--------------------------------------------------
+
+Perintah: !runScript
+Deskripsi: Run a custom JavaScript automation script from the scripts folder.
+Parameter:
+  - script_name (string): The filename of the script to run (without the path, e.g. "test_script.js").
+--------------------------------------------------
+
