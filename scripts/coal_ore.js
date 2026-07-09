@@ -37,8 +37,9 @@ export default async function main(bot, skills, world) {
         const coal_blocks = world.getNearestBlocksWhere(bot, block => block.name === 'coal_ore' || block.name === 'deepslate_coal_ore', 64, 1);
 
         if (coal_blocks.length === 0) {
-            bot.chat("Tidak ada Coal Ore di sekitar jarak 64 blok. Saya akan berhenti.");
-            break;
+            bot.chat("Tidak ada Coal Ore di sekitar jarak 64 blok. Mengeksplorasi area baru...");
+            await skills.moveAway(bot, 32);
+            continue;
         }
 
         // 4. Coba menambang 1 block coal
