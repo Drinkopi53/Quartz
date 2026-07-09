@@ -223,6 +223,12 @@ Parameters:
 Usage Example: !takeFromChest("cooked_beef", 3)
 --------------------------------------------------
 
+Command: !putAllChest
+Description: Put all items from the inventory into the nearest chest, except for tools and food.
+Parameters: None
+Usage Example: !putAllChest
+--------------------------------------------------
+
 Command: !viewChest
 Description: View the items/counts of the nearest chest.
 Parameters: None

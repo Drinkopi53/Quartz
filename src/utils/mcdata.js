@@ -143,6 +143,28 @@ export function isHostile(mob) {
     return  (mob.type === 'mob' || mob.type === 'hostile') && mob.name !== 'iron_golem' && mob.name !== 'snow_golem';
 }
 
+export function isFood(itemName) {
+    if (!mcdata || !mcdata.foodsByName) return false;
+    return !!mcdata.foodsByName[itemName];
+}
+
+export function isTool(itemName) {
+    const item = mcdata.itemsByName[itemName];
+    if (!item) return false;
+    if (item.enchantCategories) {
+        const categories = item.enchantCategories;
+        if (categories.includes('weapon') || categories.includes('armor') || categories.includes('breakable')) {
+            return true;
+        }
+    }
+    // Fallback based on name for items that might miss categories
+    const toolKeywords = ['sword', 'pickaxe', 'axe', 'shovel', 'hoe', 'helmet', 'chestplate', 'leggings', 'boots', 'shield', 'bow', 'crossbow', 'trident', 'fishing_rod', 'shears', 'flint_and_steel'];
+    for (let keyword of toolKeywords) {
+        if (itemName.includes(keyword)) return true;
+    }
+    return false;
+}
+
 // blocks that don't work with collectBlock, need to be manually collected
 export function mustCollectManually(blockName) {
     // all crops (that aren't normal blocks), torches, buttons, levers, redstone,
