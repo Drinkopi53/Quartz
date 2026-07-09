@@ -18,7 +18,7 @@ const ERROR_DEFINITIONS = {
         isFatal: false
     },
     'version_mismatch': {
-        keywords: ['outdated', 'version', 'client'],
+        keywords: ['outdated', 'version mismatch', 'invalid version', 'unsupported version'],
         msg: 'Version Mismatch: Client and server versions do not match.',
         isFatal: true
     },
