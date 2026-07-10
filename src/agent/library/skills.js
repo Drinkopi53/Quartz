@@ -916,7 +916,10 @@ export async function putAllInChest(bot) {
     while (true) {
         let itemsToDeposit = [];
         for (let item of bot.inventory.items()) {
-            if (!mc.isFood(item.name) && !mc.isTool(item.name)) {
+            const isFoodVal = mc.isFood(item.name);
+            const isToolVal = mc.isTool(item.name);
+            log(bot, `Checking: ${item.name} (isFood: ${isFoodVal}, isTool: ${isToolVal})`);
+            if (!isFoodVal && !isToolVal) {
                 itemsToDeposit.push(item);
             }
         }
