@@ -945,10 +945,14 @@ export async function putAllInChest(bot) {
                 // Check inventory count before deposit so we can calculate how much was deposited
                 const countBefore = bot.inventory.items().find(i => i.type === item.type)?.count || 0;
                 await chestContainer.deposit(item.type, null, item.count);
+                // Add a small delay to prevent server rate limiting/sync issues
+                await new Promise(resolve => setTimeout(resolve, 200));
                 const countAfter = bot.inventory.items().find(i => i.type === item.type)?.count || 0;
                 deposited_count += (countBefore - countAfter);
             } catch (err) {
-                // Chest might be full
+                // Deposit failed for this item, chest might be full or this item couldn't be deposited.
+                // Log warning and continue to next item so other deposits can still succeed.
+                console.warn(`Failed to deposit ${item.name} in chest:`, err.message || err);
                 chest_full = true;
 
                 // Recalculate how much was deposited even if it failed midway
@@ -959,7 +963,7 @@ export async function putAllInChest(bot) {
                     deposited_count += (originalItem.count - countAfter);
                 }
 
-                break;
+                continue;
             }
         }
 
