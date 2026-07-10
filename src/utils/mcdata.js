@@ -160,7 +160,8 @@ export function isTool(itemName) {
     // Fallback based on name for items that might miss categories
     const toolKeywords = ['sword', 'pickaxe', 'axe', 'shovel', 'hoe', 'helmet', 'chestplate', 'leggings', 'boots', 'shield', 'bow', 'crossbow', 'trident', 'fishing_rod', 'shears', 'flint_and_steel'];
     for (let keyword of toolKeywords) {
-        if (itemName.includes(keyword)) return true;
+        const regex = new RegExp('(^|_)' + keyword + '($|_)');
+        if (regex.test(itemName)) return true;
     }
     return false;
 }

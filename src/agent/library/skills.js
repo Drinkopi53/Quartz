@@ -918,7 +918,6 @@ export async function putAllInChest(bot) {
         for (let item of bot.inventory.items()) {
             const isFoodVal = mc.isFood(item.name);
             const isToolVal = mc.isTool(item.name);
-            log(bot, `Checking: ${item.name} (isFood: ${isFoodVal}, isTool: ${isToolVal})`);
             if (!isFoodVal && !isToolVal) {
                 itemsToDeposit.push(item);
             }
@@ -954,8 +953,7 @@ export async function putAllInChest(bot) {
                 deposited_count += (countBefore - countAfter);
             } catch (err) {
                 // Deposit failed for this item, chest might be full or this item couldn't be deposited.
-                // Log warning and continue to next item so other deposits can still succeed.
-                console.warn(`Failed to deposit ${item.name} in chest:`, err.message || err);
+                log(bot, `Failed to deposit ${item.name} in chest: ${err.message || err}`);
                 chest_full = true;
 
                 // Recalculate how much was deposited even if it failed midway
@@ -966,7 +964,7 @@ export async function putAllInChest(bot) {
                     deposited_count += (originalItem.count - countAfter);
                 }
 
-                continue;
+                break; // Break loop for this chest, so we can try the next chest
             }
         }
 
