@@ -278,6 +278,14 @@ export const actionsList = [
         })
     },
     {
+        name: '!unequip',
+        description: 'Unequip all armor parts from the bot.',
+        params: {},
+        perform: runAsAction(async (agent) => {
+            await skills.unequipAllArmor(agent.bot);
+        })
+    },
+    {
         name: '!viewChest',
         description: 'View the items/counts of the nearest chest.',
         params: { },

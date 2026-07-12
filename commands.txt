@@ -248,6 +248,12 @@ Parameters:
 Usage Example: !attackPiglin("on")
 --------------------------------------------------
 
+Command: !unequip
+Description: Unequip all armor parts from the bot.
+Parameters: None
+Usage Example: !unequip
+--------------------------------------------------
+
 Command: !viewChest
 Description: View the items/counts of the nearest chest.
 Parameters: None
