@@ -229,6 +229,18 @@ Parameters: None
 Usage Example: !putAllChest
 --------------------------------------------------
 
+Command: !goNether
+Description: Detects a nearby nether portal while in the Overworld and walks inside to travel to the Nether.
+Parameters: None
+Usage Example: !goNether
+--------------------------------------------------
+
+Command: !goOverworld
+Description: Detects a nearby nether portal while in the Nether and walks inside to travel to the Overworld.
+Parameters: None
+Usage Example: !goOverworld
+--------------------------------------------------
+
 Command: !viewChest
 Description: View the items/counts of the nearest chest.
 Parameters: None

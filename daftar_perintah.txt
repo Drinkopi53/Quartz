@@ -229,6 +229,18 @@ Parameter: Tidak ada parameter
 Contoh Penulisan: !putAllChest
 --------------------------------------------------
 
+Perintah: !goNether
+Deskripsi: Detects a nearby nether portal while in the Overworld and walks inside to travel to the Nether.
+Parameter: Tidak ada parameter
+Contoh Penulisan: !goNether
+--------------------------------------------------
+
+Perintah: !goOverworld
+Deskripsi: Detects a nearby nether portal while in the Nether and walks inside to travel to the Overworld.
+Parameter: Tidak ada parameter
+Contoh Penulisan: !goOverworld
+--------------------------------------------------
+
 Perintah: !viewChest
 Deskripsi: View the items/counts of the nearest chest.
 Parameter: Tidak ada parameter
