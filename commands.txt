@@ -241,6 +241,13 @@ Parameters: None
 Usage Example: !goOverworld
 --------------------------------------------------
 
+Command: !attackPiglin
+Description: Enable or disable attacking Zombified Piglins.
+Parameters:
+  - state (string): Enable or disable: "on" or "off".
+Usage Example: !attackPiglin("on")
+--------------------------------------------------
+
 Command: !viewChest
 Description: View the items/counts of the nearest chest.
 Parameters: None

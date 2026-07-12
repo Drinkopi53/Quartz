@@ -43,6 +43,7 @@ const settings = {
     "render_bot_view": false, // show bot's view in browser at localhost:3000, 3001...
     "disable_llm": true, // disable LLM and use manual commands only
     "manual_only": true, // disable LLM and run bot on manual commands only
+    "attack_piglin": false, // enable/disable attacking Zombie Piglin
 
     "allow_insecure_coding": false, // allows newAction command and model can write/run code on your computer. enable at own risk
     "allow_vision": false, // allows vision model to interpret screenshots as inputs
