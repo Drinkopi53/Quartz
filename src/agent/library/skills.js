@@ -916,7 +916,10 @@ export async function putAllInChest(bot) {
     while (true) {
         let itemsToDeposit = [];
         for (let item of bot.inventory.items()) {
-            if (!mc.isFood(item.name) && !mc.isTool(item.name)) {
+            const isFoodVal = mc.isFood(item.name);
+            const isToolVal = mc.isTool(item.name);
+            log(bot, `Checking item: ${item.name} (isFood: ${isFoodVal}, isTool: ${isToolVal})`);
+            if (!isFoodVal && !isToolVal) {
                 itemsToDeposit.push(item);
             }
         }
@@ -948,6 +951,7 @@ export async function putAllInChest(bot) {
                 const countAfter = bot.inventory.items().find(i => i.type === item.type)?.count || 0;
                 deposited_count += (countBefore - countAfter);
             } catch (err) {
+                log(bot, `Failed to deposit ${item.name}: ${err.message || err}`);
                 // Chest might be full
                 chest_full = true;
 

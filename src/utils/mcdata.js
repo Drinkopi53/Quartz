@@ -145,6 +145,9 @@ export function isHostile(mob) {
 
 export function isFood(itemName) {
     if (!itemName) return false;
+    if (itemName.startsWith('minecraft:')) {
+        itemName = itemName.substring(10);
+    }
     if (itemName.startsWith('raw_') || itemName.includes('ore') || itemName.includes('ingot') || itemName.includes('nugget') || itemName.includes('block')) {
         return false;
     }
@@ -154,6 +157,9 @@ export function isFood(itemName) {
 
 export function isTool(itemName) {
     if (!itemName) return false;
+    if (itemName.startsWith('minecraft:')) {
+        itemName = itemName.substring(10);
+    }
     if (itemName === 'shield') return true;
 
     // Guard against raw materials, ores, blocks, ingots, nuggets, and waxed copper blocks
