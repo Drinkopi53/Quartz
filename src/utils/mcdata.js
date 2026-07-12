@@ -144,24 +144,38 @@ export function isHostile(mob) {
 }
 
 export function isFood(itemName) {
+    if (!itemName) return false;
+    if (itemName.startsWith('raw_') || itemName.includes('ore') || itemName.includes('ingot') || itemName.includes('nugget') || itemName.includes('block')) {
+        return false;
+    }
     if (!mcdata || !mcdata.foodsByName) return false;
     return !!mcdata.foodsByName[itemName];
 }
 
 export function isTool(itemName) {
+    if (!itemName) return false;
+    if (itemName === 'shield') return true;
+
+    // Guard against raw materials, ores, blocks, ingots, nuggets, and waxed copper blocks
+    if (itemName.startsWith('raw_') || itemName.includes('ore') || itemName.includes('ingot') || 
+        itemName.includes('nugget') || itemName.includes('block') || itemName.includes('waxed')) {
+        return false;
+    }
+
     const item = mcdata.itemsByName[itemName];
     if (!item) return false;
     if (item.enchantCategories) {
         const categories = item.enchantCategories;
-        if (categories.includes('weapon') || categories.includes('armor') || categories.includes('breakable')) {
+        // In 1.21.11, categories include 'mining', 'durability', 'weapon', 'armor', 'equippable', etc.
+        const toolCategories = ['weapon', 'armor', 'breakable', 'mining', 'durability', 'equippable'];
+        if (categories.some(cat => toolCategories.includes(cat))) {
             return true;
         }
     }
     // Fallback based on name for items that might miss categories
     const toolKeywords = ['sword', 'pickaxe', 'axe', 'shovel', 'hoe', 'helmet', 'chestplate', 'leggings', 'boots', 'shield', 'bow', 'crossbow', 'trident', 'fishing_rod', 'shears', 'flint_and_steel'];
     for (let keyword of toolKeywords) {
-        const regex = new RegExp('(^|_)' + keyword + '($|_)');
-        if (regex.test(itemName)) return true;
+        if (itemName.includes(keyword)) return true;
     }
     return false;
 }

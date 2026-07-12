@@ -916,9 +916,7 @@ export async function putAllInChest(bot) {
     while (true) {
         let itemsToDeposit = [];
         for (let item of bot.inventory.items()) {
-            const isFoodVal = mc.isFood(item.name);
-            const isToolVal = mc.isTool(item.name);
-            if (!isFoodVal && !isToolVal) {
+            if (!mc.isFood(item.name) && !mc.isTool(item.name)) {
                 itemsToDeposit.push(item);
             }
         }
@@ -947,13 +945,10 @@ export async function putAllInChest(bot) {
                 // Check inventory count before deposit so we can calculate how much was deposited
                 const countBefore = bot.inventory.items().find(i => i.type === item.type)?.count || 0;
                 await chestContainer.deposit(item.type, null, item.count);
-                // Add a small delay to prevent server rate limiting/sync issues
-                await new Promise(resolve => setTimeout(resolve, 200));
                 const countAfter = bot.inventory.items().find(i => i.type === item.type)?.count || 0;
                 deposited_count += (countBefore - countAfter);
             } catch (err) {
-                // Deposit failed for this item, chest might be full or this item couldn't be deposited.
-                log(bot, `Failed to deposit ${item.name} in chest: ${err.message || err}`);
+                // Chest might be full
                 chest_full = true;
 
                 // Recalculate how much was deposited even if it failed midway
@@ -964,7 +959,7 @@ export async function putAllInChest(bot) {
                     deposited_count += (originalItem.count - countAfter);
                 }
 
-                break; // Break loop for this chest, so we can try the next chest
+                break;
             }
         }
 
