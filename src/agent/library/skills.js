@@ -930,9 +930,11 @@ export async function putAllInChest(bot) {
      * @example
      * await skills.putAllInChest(bot);
      **/
-    let chest = world.getNearestBlock(bot, 'chest', 32);
+    const containerTypes = ['chest', 'trapped_chest', 'barrel'];
+    const containerIds = containerTypes.map(type => mc.getBlockId(type)).filter(id => id != null);
+    let chest = world.getNearestBlock(bot, containerTypes, 32);
     if (!chest) {
-        log(bot, `Could not find a chest nearby.`);
+        log(bot, `Could not find a chest or barrel nearby.`);
         return false;
     }
 
@@ -959,7 +961,7 @@ export async function putAllInChest(bot) {
         }
 
         if (!chest) {
-            log(bot, `Comrade, peti telah penuh semuanya`);
+            log(bot, `Comrade, semua peti/barrel di sekitar sudah penuh.`);
             return false;
         }
 
@@ -972,19 +974,15 @@ export async function putAllInChest(bot) {
         let chest_full = false;
         for (let item of itemsToDeposit) {
             try {
-                // Check inventory count before deposit so we can calculate how much was deposited
                 const countBefore = bot.inventory.items().find(i => i.type === item.type)?.count || 0;
                 await chestContainer.deposit(item.type, null, item.count);
                 const countAfter = bot.inventory.items().find(i => i.type === item.type)?.count || 0;
                 deposited_count += (countBefore - countAfter);
             } catch (err) {
                 log(bot, `Failed to deposit ${item.name}: ${err.message || err}`);
-                // Chest might be full
                 chest_full = true;
 
-                // Recalculate how much was deposited even if it failed midway
                 const countAfter = bot.inventory.items().find(i => i.type === item.type)?.count || 0;
-                // find the original count in itemsToDeposit
                 const originalItem = itemsToDeposit.find(i => i.type === item.type);
                 if (originalItem) {
                     deposited_count += (originalItem.count - countAfter);
@@ -1002,19 +1000,18 @@ export async function putAllInChest(bot) {
         if (itemsLeftToDeposit.length > 0) {
             excludePositions.push(chest.position);
 
-            // Find next chest using findBlocks
+            // Find next chests
             const nextChests = bot.findBlocks({
-                matching: mc.getBlockId('chest'),
+                matching: containerIds,
                 maxDistance: max_search_range,
-                count: excludePositions.length + 1
+                count: excludePositions.length + 10
             });
 
             chest = null;
-            // Sort by distance manually, filter out excluded
             const pos = bot.entity.position;
             const validChests = nextChests
                 .filter(p => !excludePositions.some(ep => ep.x === p.x && ep.y === p.y && ep.z === p.z))
-                .sort((a, b) => pos.distanceTo(a) - pos.distanceTo(b));
+                .sort((a, b) => pos.distanceSquared(a) - pos.distanceSquared(b));
 
             if (validChests.length > 0) {
                 chest = bot.blockAt(validChests[0]);
