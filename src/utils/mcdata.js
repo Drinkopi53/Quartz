@@ -66,6 +66,7 @@ export function initBot(username) {
     }
 
     const bot = createBot(options);
+    bot.setMaxListeners(0); // Prevents EventEmitter max listeners warnings (e.g. from collectBlock)
 
     // Throttle position packets to avoid kicks on Paper/Spigot servers
     // Paper enforces stricter packet rate limits than vanilla, causing ECONNRESET
